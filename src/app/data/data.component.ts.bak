@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import {DataService} from 'data/data.service';
+import {DataService} from './data.service';
         
 @Component({
     selector: 'my-app',
@@ -15,7 +15,7 @@ import {DataService} from 'data/data.service';
     </div>`,
     providers: [DataService]
 })
-export class AppComponent{ 
+export class DataComponent{ 
       
     items: string[] = [];
     name: string = "";

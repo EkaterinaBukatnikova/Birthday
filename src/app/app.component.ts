@@ -1,19 +1,31 @@
 import { Component} from '@angular/core';
- 
+import {DataService} from './data/data.service';
+        
 @Component({
     selector: 'my-app',
-    template:`<p *while="condition">
-      Первый параграф
-    </p>
-    <p *while="!condition">
-      Второй параграф
-    </p>
-    <button (click)="toggle()">Toggle</button>`
+    template: `<div class="panel">
+        <div><input [(ngModel)]="name" placeholder = "Модель" />
+            <button (click)="addItem(name)">Добавить</button>
+        </div>
+        <table>
+            <tr *ngFor="let item of items">
+                <td>{{item}}</td>
+            </tr>
+        </table>
+    </div>`,
+    providers: [DataService]
 })
-export class AppComponent {
-     
-    condition: boolean=true;
-    toggle(){
-        this.condition=!this.condition;
+export class AppComponent{ 
+      
+    items: string[] = [];
+    name: string = "";
+    constructor(private dataService: DataService){}
+      
+    addItem(name: string){
+          
+        this.dataService.addData(name);
+    }
+    ngOnInit(){
+        this.items = this.dataService.getData();
     }
 }
