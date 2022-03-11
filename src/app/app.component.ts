@@ -1,10 +1,19 @@
 import { Component} from '@angular/core';
-    
+ 
 @Component({
     selector: 'my-app',
-    template: `<div>
-                    <h1>AppModule</h1>
-                    <data-comp></data-comp>
-               </div>`
+    template:`<p *while="condition">
+      Первый параграф
+    </p>
+    <p *while="!condition">
+      Второй параграф
+    </p>
+    <button (click)="toggle()">Toggle</button>`
 })
-export class AppComponent {}
+export class AppComponent {
+     
+    condition: boolean=true;
+    toggle(){
+        this.condition=!this.condition;
+    }
+}

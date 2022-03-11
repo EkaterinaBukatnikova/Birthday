@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-      
+import { Component} from '@angular/core';
+    
 @Component({
     selector: 'my-app',
-    template: `<child-comp><h2>Добро пожаловать {{name}}!</h2></child-comp>`,
-    styles: [`h2, p {color:#333;}`]
+    template: `<div>
+                    <h1>AppModule</h1>
+                    <data-comp></data-comp>
+               </div>`
 })
-export class AppComponent { 
-    name = 'Tom';
-}
+export class AppComponent {}
