@@ -1,11 +1,12 @@
 import { Component} from '@angular/core';
-import {DataService} from './data/data.service';
+import {DataService} from './data.service';
+import {LogService} from './log.service';
         
 @Component({
     selector: 'my-app',
     template: `<div class="panel">
-        <div><input [(ngModel)]="name" placeholder = "Модель" />
-            <button (click)="addItem(name)">Добавить</button>
+        <div><input [(ngModel)]="newItem" placeholder = "Модель" />
+            <button (click)="addItem(newItem)">Добавить</button>
         </div>
         <table>
             <tr *ngFor="let item of items">
@@ -13,12 +14,12 @@ import {DataService} from './data/data.service';
             </tr>
         </table>
     </div>`,
-    providers: [DataService]
+    providers: [DataService, LogService]
 })
 export class AppComponent{ 
       
+    newItem: string = "";
     items: string[] = [];
-    name: string = "";
     constructor(private dataService: DataService){}
       
     addItem(name: string){

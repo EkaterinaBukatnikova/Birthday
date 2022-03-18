@@ -15,7 +15,7 @@ import {DataService} from './data.service';
     </div>`,
     providers: [DataService]
 })
-export class DataComponent{ 
+export class AppComponent{ 
       
     items: string[] = [];
     name: string = "";
