@@ -1,56 +1,46 @@
 import { Component} from '@angular/core';
-import { NgModel} from '@angular/forms';
- 
-export class Phone{
-    constructor(public title: string, 
-                public price: number, 
-                public company: string)
-    { }
+       
+export class User{
+    constructor(public name: string,
+        public email: string,
+        public phone: string){}
 }
  
 @Component({
     selector: 'my-app',
-    template: `<div class="col-xs-10"> 
+    template: `<div> 
                     <div class="form-group">
-                        <label>Название модели</label>
-                        <input class="form-control" name="title"
-                            [(ngModel)]="phone.title" #phoneTitle="ngModel" />
-                    </div>
-                    <div class="form-group">
-                        <label>Цена</label>
-                        <input type="number" class="form-control" name="price"
-                            [(ngModel)]="phone.price" #phonePrice="ngModel" />
+                        <label>Имя</label>
+                        <input class="form-control" name="name" [(ngModel)]="user.name" #name="ngModel" required />
+                        <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
+                          Не указано имя
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Производитель</label>
-                        <select class="form-control" name="company"
-                            [(ngModel)]="phone.company" #phoneCompany="ngModel">
-                            <option  *ngFor="let comp of companies" [value]="comp">
-                                {{comp}}
-                            </option>
-                        </select>
+                        <label>Email</label>
+                        <input class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" 
+                            required pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" />
+                        <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
+                          Некорректный email
+                        </div>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-default" (click)="addPhone(phoneTitle, phonePrice, phoneCompany)">
-                            Добавить
-                        </button>
+                        <label>Телефон</label>
+                        <input class="form-control" name="phone" [(ngModel)]="user.phone" #phone="ngModel" 
+                            required pattern="[0-9]{10}" />
+                        <div [hidden]="phone.valid || phone.untouched" class="alert alert-danger">
+                          Некорректный телефон
+                        </div>
                     </div>
-                    <div>
-                        <p>{{phoneTitle.name}} : {{phoneTitle.model}}</p>
-                        <p>{{phonePrice.name}} : {{phonePrice.model}}</p>
-                        <p>{{phoneCompany.name}} : {{phoneCompany.model}}</p>
+                    <div class="form-group">
+                        <button class="btn btn-default" (click)="addUser()">Добавить</button>
                     </div>
-              </div>
-              `
+              </div>`
 })
 export class AppComponent { 
  
-    phone: Phone = new Phone("", 0, "");
-    companies: string[] = ["Apple", "Huawei", "Xiaomi", "Samsung", "LG", "Motorola", "Alcatel"];
-     
-    addPhone(title:NgModel, price: NgModel, comp: NgModel){
-        console.log(title);
-        console.log(price);
-        console.log(comp);
+    user: User = new User("", "", "");
+    addUser(){
+        console.log(this.user);
     }
 }
