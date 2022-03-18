@@ -1,46 +1,39 @@
 import { Component} from '@angular/core';
-       
-export class User{
-    constructor(public name: string,
-        public email: string,
-        public phone: string){}
-}
+import { NgForm} from '@angular/forms';
  
 @Component({
     selector: 'my-app',
-    template: `<div> 
+    styles: [`
+        input.ng-touched.ng-invalid {border:solid red 2px;}
+        input.ng-touched.ng-valid {border:solid green 2px;}
+    `],
+    template: `<form #myForm="ngForm" novalidate (ngSubmit)="onSubmit(myForm)">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input class="form-control" name="name" [(ngModel)]="user.name" #name="ngModel" required />
-                        <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
-                          Не указано имя
-                        </div>
+                        <input class="form-control" name="name" ngModel required />
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" 
-                            required pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" />
-                        <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
-                          Некорректный email
-                        </div>
+                        <input class="form-control" name="email" ngModel 
+                            required email />
                     </div>
                     <div class="form-group">
                         <label>Телефон</label>
-                        <input class="form-control" name="phone" [(ngModel)]="user.phone" #phone="ngModel" 
+                        <input class="form-control" name="phone" ngModel 
                             required pattern="[0-9]{10}" />
-                        <div [hidden]="phone.valid || phone.untouched" class="alert alert-danger">
-                          Некорректный телефон
-                        </div>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-default" (click)="addUser()">Добавить</button>
+                        <input type="submit" [disabled]="myForm.invalid" class="btn btn-default" value="Отправить" />
                     </div>
-              </div>`
+                </form>`
 })
 export class AppComponent { 
  
-    user: User = new User("", "", "");
-    addUser(){
-        console.log(this.user);
+    name: string = "";
+    email: string = "";
+    phone: string = "";
+     
+    onSubmit(form: NgForm){
+        console.log(form);
     }
 }
